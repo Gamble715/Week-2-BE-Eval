@@ -17,7 +17,7 @@ module Tennis
       elsif player_num == 2
         @player2.record_won_ball!
       end
-    end    
+    end     
   end
 
   class Player
@@ -39,7 +39,26 @@ module Tennis
       return 'love' if @points == 0
       return 'fifteen' if @points == 1
       return 'thirty' if @points == 2
+      return 'duece' if duece?
       return 'forty' if @points == 3
+      return 'advantage' if advantage?
+      return 'win' if wins_games
+    end
+
+    def wins_game
+      if @points == 4 && @opponent.points < 3 || @points >= 3 && @opponent.points == (@points - 2)
+        puts "You win."
+      elsif @opponent.points == 4 && @points < 3 || @opponent.points >= 3 && @points == (@opponents.points - 2)
+        puts "You lose."
+      end
+    end 
+
+    def advantage?
+      @points >= 3 && @opponent.points == (@points - 1)
+    end
+
+    def duece?
+      @points >= 3 && @opponent.points == @points
     end
   end
 end
